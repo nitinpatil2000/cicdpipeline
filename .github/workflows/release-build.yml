@@ -1,0 +1,35 @@
+name: Android Release Build
+
+on:
+  push:
+    tags:
+      - 'release-*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Grant Execute Permission
+        run: chmod +x gradlew
+
+      - name: Build All Variants
+        run: ./gradlew assemble
+
+      - name: Upload Build Outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-builds
+          path: app/build/outputs/
