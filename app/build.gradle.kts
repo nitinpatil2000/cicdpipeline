@@ -39,6 +39,15 @@ android {
     }
 }
 
+configurations.all {
+    resolutionStrategy {
+        force(
+            "androidx.core:core:1.16.0",
+            "androidx.core:core-ktx:1.16.0"
+        )
+    }
+}
+
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
