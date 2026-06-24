@@ -1,27 +1,27 @@
 name: CI
 
-on: 
+on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
 
-  workflow_dispatch: 
+  workflow_dispatch:
 
 jobs:
-
-  build: 
+  lint:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout the code
+        uses: actions/checkout@v2
 
-      - name: Run a one-line script
-        run: echo Hello world!
+      - name: Run Lint
+        run: ./gradlew lintDebug
 
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build, 
-          echo test and deploy your project.
-          
-        
+      - name: Upload html test report
+        uses: actions/upload-artifact@v2
+        with:
+          name: lint-report.html
+          path: app/build/reports/lint-results-developmentDebug.html
+
+

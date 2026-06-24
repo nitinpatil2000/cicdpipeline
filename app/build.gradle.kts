@@ -39,11 +39,18 @@ android {
     }
 }
 
+// Fix ambiguous 'lintDebug' task by providing a direct match
+tasks.register("lintDebug") {
+    dependsOn("lintDevelopmentDebug")
+    group = "verification"
+    description = "Runs lint on the DevelopmentDebug build."
+}
+
 configurations.all {
     resolutionStrategy {
         force(
-            "androidx.core:core:1.16.0",
-            "androidx.core:core-ktx:1.16.0"
+            "androidx.core:core:1.15.0",
+            "androidx.core:core-ktx:1.15.0"
         )
     }
 }
